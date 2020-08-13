@@ -5,40 +5,38 @@
         "ALBCertificateArn": {
             "Description": "ARN of ACM TLS certificate",
             "Type": "String",
-            "Default": "arn:aws:acm:us-east-1:158826777352:certificate/0efe7d19-57a5-450f-a8e9-0992add78a55",
+            "Default": "arn:aws:acm:us-east-1:191188911741:certificate/e8704d0f-fc93-4560-8b24-6480abcc9c9b",
             "ConstraintDescription": "must be a valid ARN"
         },
         "WebTierInstanceType": {
             "Description": "Webserver EC2 instance type",
             "Type": "String",
-            "Default": "t3.micro",
+            "Default": "t2.micro",
             "AllowedValues": [
-                "t2.micro",
-                "t3.micro"
+                "t2.micro"
             ],
             "ConstraintDescription": "must be a valid EC2 instance type."
         },
-        "AppTierInstanceType": {
+        "AppTierInstanceType": { 
             "Description": "App server EC2 instance type",
             "Type": "String",
-            "Default": "t3.micro",
+            "Default": "t2.micro",
             "AllowedValues": [
-                "t2.micro",
-                "t3.micro"
+                "t2.micro"
             ],
             "ConstraintDescription": "must be a valid EC2 instance type."
         },
         "KeyName": {
             "Description": "Name of an existing EC2 KeyPair to enable SSH access to the instances",
             "Type": "AWS::EC2::KeyPair::KeyName",
-            "Default": "ccnetkeypair",
+            "Default": "appstack",
             "ConstraintDescription": "must be the name of an existing EC2 KeyPair."
         },
         "NetworkStackTemplateURL": {
             "Description": "URL of CF template for the network stack",
             "Type": "String",
             "AllowedPattern": "https:\\/\\/?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)",
-            "Default": "https://s3.amazonaws.com/benpiper.com-cftemplates/network-stack.json",
+            "Default": "https://dimkk-cf-stacks.s3.us-east-2.amazonaws.com/network-stack.json",
             "ConstraintDescription": "must be a valid URL"
         },
         "SSHLocation": {
@@ -51,7 +49,7 @@
             "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x."
         },
         "WebserverCapacity": {
-            "Default": "2",
+            "Default": "1",
             "Description": "The initial nuber of Webserver instances",
             "Type": "Number",
             "MinValue": "1",
@@ -59,7 +57,7 @@
             "ConstraintDescription": "must be between 1 and 6 EC2 instances."
         },
         "AppserverCapacity": {
-            "Default": "2",
+            "Default": "1",
             "Description": "The initial nuber of Webserver instances",
             "Type": "Number",
             "MinValue": "1",
@@ -151,8 +149,8 @@
                     "LaunchTemplateId" : { "Ref": "WebserverLaunchTemplate" },
                     "Version" : "1"
                   },
-                "MinSize": "2",
-                "MaxSize": "4",
+                "MinSize": "1",
+                "MaxSize": "2",
                 "DesiredCapacity": {
                     "Ref": "WebserverCapacity"
                 },
